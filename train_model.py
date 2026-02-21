@@ -1,29 +1,27 @@
 import pandas as pd
-import pickle
-from sklearn.model_selection import train_test_split
+import numpy as np
 from sklearn.linear_model import LinearRegression
+import pickle
 
 # Load dataset
 data = pd.read_csv("insurance.csv")
 
-# Convert smoker column to numeric
-data['smoker'] = data['smoker'].map({'yes': 1, 'no': 0})
+# Convert categorical to numeric
+data["sex"] = data["sex"].map({"male":1, "female":0})
+data["smoker"] = data["smoker"].map({"yes":1, "no":0})
 
-# Select features
-X = data[["age", "bmi", "smoker", "gender", "children", "income"]]
-y = data['charges']
+# Convert region using one-hot encoding
+data = pd.get_dummies(data, columns=["region"], drop_first=True)
 
-# Train-test split
-X_train, X_test, y_train, y_test = train_test_split(
-    X, y, test_size=0.2, random_state=42
-)
+# Features
+X = data.drop("charges", axis=1)
+y = data["charges"]
 
 # Train model
 model = LinearRegression()
-model.fit(X_train, y_train)
+model.fit(X, y)
 
 # Save model
 pickle.dump(model, open("model.pkl", "wb"))
 
 print("Model trained successfully!")
-print("Model Accuracy (R^2 score):", model.score(X_test, y_test))
