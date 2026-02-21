@@ -10,7 +10,7 @@ data = pd.read_csv("insurance.csv")
 data['smoker'] = data['smoker'].map({'yes': 1, 'no': 0})
 
 # Select features
-X = data[['age', 'bmi', 'smoker']]
+X = data[["age", "bmi", "smoker", "gender", "children", "income"]]
 y = data['charges']
 
 # Train-test split

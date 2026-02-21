@@ -78,15 +78,25 @@
         <input type="number" name="age" placeholder="Enter Age" required><br>
 
         <input type="number" step="0.01" name="bmi" placeholder="Enter BMI" required><br>
+         
+        <!-- NEW FIELDS -->
 
-        <label>Smoker:</label><br>
+        <select name="gender">
+            <option value="1">Male</option>
+            <option value="0">Female</option>
+        </select><br><br>
+
+        <input type="number" name="children" placeholder="Number of Children" required><br>
+
+        <input type="number" name="income" placeholder="Monthly Income" required><br>
+        
         <select name="smoker">
             <option value="1">Yes</option>
             <option value="0">No</option>
         </select><br><br>
 
         <button type="submit">Predict Insurance Cost</button>
-
+    
     </form>
 
     {% if prediction_text %}
