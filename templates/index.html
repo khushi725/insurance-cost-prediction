@@ -2,23 +2,113 @@
 <html>
 <head>
     <title>Insurance Cost Estimator</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #4e73df, #1cc88a);
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            background: white;
+            width: 40%;
+            margin: 50px auto;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 5px 15px rgba(0,0,0,0.2);
+        }
+
+        h1 {
+            color: #4e73df;
+        }
+
+        p.description {
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        input, select {
+            width: 80%;
+            padding: 10px;
+            margin: 8px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            background-color: #4e73df;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #2e59d9;
+        }
+
+        .result {
+            margin-top: 20px;
+            font-size: 20px;
+            font-weight: bold;
+            color: #1cc88a;
+        }
+
+        footer {
+            margin-top: 20px;
+            font-size: 13px;
+            color: #777;
+        }
+    </style>
 </head>
-<body style="text-align:center; font-family:Arial;">
+
+<body>
+
+<div class="container">
+
     <h1>Insurance Cost Estimator</h1>
 
-    <form action="/predict" method="post">
-        <input type="number" name="age" placeholder="Enter Age" required><br><br>
-        <input type="number" step="0.1" name="bmi" placeholder="Enter BMI" required><br><br>
+    <p class="description">
+        This machine learning web application predicts the medical insurance cost 
+        based on Age, BMI, and Smoking habits using a trained regression model.
+    </p>
 
-        <label>Smoker:</label>
+    <form action="/predict" method="post">
+
+        <input type="number" name="age" placeholder="Enter Age" required><br>
+
+        <input type="number" step="0.01" name="bmi" placeholder="Enter BMI" required><br>
+
+        <label>Smoker:</label><br>
         <select name="smoker">
-            <option value="yes">Yes</option>
-            <option value="no">No</option>
+            <option value="1">Yes</option>
+            <option value="0">No</option>
         </select><br><br>
 
-        <button type="submit">Predict</button>
+        <button type="submit">Predict Insurance Cost</button>
+
     </form>
 
-    <h2>{{ prediction_text }}</h2>
+    {% if prediction_text %}
+    <div class="result">
+        {{ prediction_text }}
+    </div>
+    {% endif %}
+
+    <footer>
+        <hr>
+        Group Name: A <br>
+        Project Name: Student Performance Prediction <br>
+        Developed by: Khushi Jain <br>
+        © 2026 All Rights Reserved
+    </footer>
+
+</div>
+
 </body>
 </html>
