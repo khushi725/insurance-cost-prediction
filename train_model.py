@@ -22,6 +22,6 @@ model = LinearRegression()
 model.fit(X, y)
 
 # Save model
-pickle.dump(model, open("model.pkl", "wb"))
+pickle.dump(model, open("insurance_model.pkl", "wb"))
 
 print("Model trained successfully!")

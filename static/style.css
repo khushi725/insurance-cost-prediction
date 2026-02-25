@@ -1,0 +1,35 @@
+body {
+    background: linear-gradient(to right, #667eea, #764ba2);
+    font-family: Arial;
+    text-align: center;
+}
+
+.container {
+    background: white;
+    padding: 30px;
+    margin: 50px auto;
+    width: 400px;
+    border-radius: 15px;
+    box-shadow: 0 0 10px gray;
+}
+
+input, select {
+    width: 90%;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 5px;
+    border: 1px solid gray;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #667eea;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #5a67d8;
+}

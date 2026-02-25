@@ -1,10 +1,11 @@
 from flask import Flask, render_template, request
-import pickle
 import numpy as np
+import pickle
 
 app = Flask(__name__)
 
-model = pickle.load(open("model.pkl", "rb"))
+# Load trained model
+model = pickle.load(open("insurance_model.pkl", "rb"))
 
 @app.route("/")
 def home():
@@ -12,28 +13,26 @@ def home():
 
 @app.route("/predict", methods=["POST"])
 def predict():
+    try:
+        age = int(request.form["age"])
+        sex = int(request.form["sex"])
+        bmi = float(request.form["bmi"])
+        children = int(request.form["children"])
+        smoker = int(request.form["smoker"])
+        region = int(request.form["region"])
 
-    age = float(request.form["age"])
-    sex = float(request.form["sex"])
-    bmi = float(request.form["bmi"])
-    children = float(request.form["children"])
-    smoker = float(request.form["smoker"])
-    region = request.form["region"]
+        data = np.array([[age, sex, bmi, children, smoker, region]])
 
-    # Region encoding (must match training)
-    region_northwest = 1 if region == "northwest" else 0
-    region_southeast = 1 if region == "southeast" else 0
-    region_southwest = 1 if region == "southwest" else 0
+        prediction = model.predict(data)
 
-    features = np.array([[age, sex, bmi, children, smoker,
-                          region_northwest,
-                          region_southeast,
-                          region_southwest]])
+        output = round(prediction[0], 2)
 
-    prediction = model.predict(features)
+        return render_template("index.html",
+               prediction_text=f"Estimated Insurance Cost: ₹ {output}")
 
-    return render_template("index.html",
-                           prediction_text="Estimated Insurance Cost: ₹ {:.2f}".format(prediction[0]))
+    except Exception as e:
+        return render_template("index.html",
+                               prediction_text=str(e))
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)
